@@ -3,6 +3,7 @@ const userRoute = require("./route/user.route");
 const postRoute = require("./route/post.route");
 const commentRoute = require("./route/comment.route");
 const bodyParser = require("body-parser");
+const { connect } = require('./model/connexion.js');
 
 const app = express();
 
@@ -15,6 +16,15 @@ app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
     next();
 });
+
+async function launch() {
+    await connect();
+    app.listen(3001, () => {
+        console.log("Server is running on port 3001");
+    });
+}
+
+launch();
 
 app.use('/user', userRoute);
 app.use('/post', postRoute);
