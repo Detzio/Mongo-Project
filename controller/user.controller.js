@@ -1,8 +1,5 @@
 const User = require("./../model/user.model");
 
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const User = require('../models/user'); // Assurez-vous que le modèle User est correctement importé
 
 /**
  * Methode pour la connexion utilisateur
@@ -25,7 +22,7 @@ exports.login = async (req, res) => {
     try {
         const user = await User.findOne({ email, password });
         if (!user) {
-            return res.status(404).json({ message: 'User not found or invalid credentials' });
+            return res.status(404).json({ message: 'User not found' });
         }
 
         res.status(200).json({ user });
@@ -46,18 +43,7 @@ exports.login = async (req, res) => {
 exports.signin = async (req, res) => {
     const { email, password, username } = req.body;
     try {
-        const existingUser = await User.findOne({ email });
-        if (existingUser) {
-            return res.status(400).json({ message: 'User already exists' });
-        }
-
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const newUser = new User({
-            email,
-            password,
-            username
-        });
-
+        const newUser = new User(req.body);
         await newUser.save();
         res.status(201).json({ message: 'User created successfully', user: newUser });
     } catch (e) {

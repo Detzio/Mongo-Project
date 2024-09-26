@@ -2,9 +2,11 @@ const express = require("express");
 const userRoute = require("./route/user.route");
 const postRoute = require("./route/post.route");
 const commentRoute = require("./route/comment.route");
+const bodyParser = require("body-parser");
 
 const app = express();
 
+app.use(bodyParser.json());
 app.use(express.json());
 
 app.use((req, res, next) => {
