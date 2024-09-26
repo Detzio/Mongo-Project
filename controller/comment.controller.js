@@ -11,7 +11,11 @@ const Comment = require("./../model/comment.model");
  */
 exports.create = async () => {
     try{
-        //TODO
+        let newComment = {
+            ...req.body,
+            date : new Date()
+        }
+        let comment = await Comment.create(newComment);
         res.status(201).json(comment);
     }catch(e){
         res.status(500).json(e.message);
@@ -41,7 +45,8 @@ exports.update = async () => {
  */
 exports.delete = async () => {
     try{
-        //TODO
+        let id = req.params.id
+        await Comment.findByIdAndDelete(id);
         res.status(200).json({message: "Commentaire supprimé"});
     }catch(e){
         res.status(500).json(e.message);
