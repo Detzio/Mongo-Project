@@ -65,15 +65,24 @@ exports.create = async (req, res) => {
  *     message: <string>
  * }
  */
-exports.update = async () => {
-    try{
-        //TODO
-        res.status(201).json({message: "Post mis à jour"});
-    }catch(e){
-        res.status(500).json(e.message);
+
+exports.update = async (req, res) => {
+    const { id } = req.params;
+    const { message } = req.body;
+    try {
+        const updatedPost = await Post.findByIdAndUpdate(
+            id,
+            { message, date: new Date() }, 
+            { new: true } 
+        );
+        if (!updatedPost) {
+            return res.status(404).json({ message: "Post non trouvé" });
+        }
+        res.status(200).json({ message: "Post mis à jour", updatedPost });
+    } catch (e) {
+        res.status(500).json({ message: e.message });
     }
 }
-
 /**
  * Methode pour supprimer un post (attention de bien supprimer les commentaires associés)
  * @param id l'id du post à supprimer

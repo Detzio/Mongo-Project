@@ -55,7 +55,7 @@ exports.delete = async (req, res) => {
     try {
         const deletedComment = await Comment.findByIdAndDelete(id);
         if (!deletedComment) {
-            return res.status(404).json({ message: "Commentaire non trouvé" });
+            return res.status(404).json({ message: 'Commentaire non trouvé ${id}' });
         }
         res.status(200).json({ message: "Commentaire supprimé" });
     } catch (e) {
