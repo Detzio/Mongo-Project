@@ -1,5 +1,5 @@
 const Post = require("./../model/post.model");
-
+const Comment = require("./../model/comment.model");
 /**
  * Methode pour récupérer 10 post (les plus récents) par page
  * @param page le numéro de la page actuelle
@@ -81,7 +81,7 @@ exports.update = async () => {
 exports.delete = async (req, res) => {
     try{
         let id = req.params.id
-        //await Comment.deleteMany({ post: postId });
+        await Comment.deleteMany({postId : id});
         await Post.findByIdAndDelete(id);
         res.status(200).json({message: "Post supprimé"});
     }catch(e){
