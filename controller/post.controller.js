@@ -27,9 +27,13 @@ exports.getAll = async (req, res) => {
 /**
  * Methode pour récupérer un post par son id, et les commentaires associés à ce post
  */
-exports.getById = async () => {
+exports.getById = async (req, res) => {
     try{
-        //TODO
+        let result = await Post.findById(req.params.id)
+        await Comment.find({postId : id}); 
+        if(result == null) {
+            res.status(404).send("post not found")
+        }
         res.status(200).json(postWithComment);
     }catch(e){
         res.status(500).json(e.message);
