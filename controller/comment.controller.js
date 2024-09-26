@@ -10,7 +10,7 @@ const Comment = require("./../model/comment.model");
  * }
  */
 
-exports.create = async () => {
+exports.create = async (req, res) => {
     try{
         let newComment = {
             ...req.body,
