@@ -22,3 +22,4 @@ Il faudra modifier :
  - app.js : à modifier afin d'appeler la fonction de connexion à la base de données
  - model/....model.js : les 3 fichiers de model doivent être implémentés pour créer des schéma mongoose appropriés
  - controller/....controller.js : les 3 fichiers présentent déjà les fonctions demandées, avec des commentaires explicatif de ce qui est attendu, à vous de les compléter les "todo"
+A
