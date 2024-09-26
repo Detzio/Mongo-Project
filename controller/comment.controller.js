@@ -9,21 +9,20 @@ const Comment = require("./../model/comment.model");
  *     postId: <string>
  * }
  */
-// exports.create = async (req, res) => {
-//     const { message, userId, postId } = req.body;
-//     try {
-//         const newComment = new Comment({
-//             message,
-//             date: new Date(),
-//             userId,
-//             postId
-//         });
-//         await newComment.save();
-//         res.status(201).json(newComment);
-//     } catch (e) {
-//         res.status(500).json({ message: e.message });
-//     }
-// }
+
+exports.create = async () => {
+    try{
+        let newComment = {
+            ...req.body,
+            date : new Date()
+        }
+        let comment = await Comment.create(newComment);
+        res.status(201).json(comment);
+    }catch(e){
+        res.status(500).json(e.message);
+    }
+}
+
 
 /**
  * Méthode pour modifier un commentaire

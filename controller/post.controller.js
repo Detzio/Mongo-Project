@@ -36,9 +36,13 @@ exports.getById = async () => {
  *     userId: <string>
  * }
  */
-exports.create = async () => {
+exports.create = async (req, res) => {
     try{
-        //TODO
+        let newPost = {
+            ...req.body,
+            date : new Date()
+        }
+        let post = await Post.create(newPost);
         res.status(201).json(post);
     }catch(e){
         res.status(500).json(e.message);
@@ -66,9 +70,11 @@ exports.update = async () => {
  * Methode pour supprimer un post (attention de bien supprimer les commentaires associés)
  * @param id l'id du post à supprimer
  */
-exports.delete = async () => {
+exports.delete = async (req, res) => {
     try{
-        //TODO
+        let id = req.params.id
+        //await Comment.deleteMany({ post: postId });
+        await Post.findByIdAndDelete(id);
         res.status(200).json({message: "Post supprimé"});
     }catch(e){
         res.status(500).json(e.message);
