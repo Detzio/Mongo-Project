@@ -30,7 +30,7 @@ exports.getAll = async (req, res) => {
 exports.getById = async (req, res) => {
     try{
         let result = await Post.findById(req.params.id)
-        await Comment.find({postId : id}); 
+        await Comment.find({postId : req.params.id}); 
         if(result == null) {
             res.status(404).send("post not found")
         }
